@@ -94,7 +94,12 @@ io.on("connection", function(socket) {
   });
 });
 
-
+ socket.on('chat-message', (data) => {
+        socket.broadcast.emit('chat-message', {
+            username: data.username,
+            message: data.message
+        });
+    });
 
 
 socket.on("size", ({ size, roomName }) => {
@@ -138,6 +143,6 @@ const port = process.env.PORT || 3000;
 //   console.log("Server has started at port 3000");
 // });
 
-server.listen(3000, () => {
+server.listen(port, () => {
   console.log('✅ Server running at http://localhost:3000');
 });

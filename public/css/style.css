@@ -146,3 +146,49 @@ input[type=range]::-webkit-slider-thumb {
 opacity: 1;
   }
 }
+
+.chat-container {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 300px;
+  max-height: 400px;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  z-index: 999;
+}
+
+.chat-messages {
+  flex: 1;
+  padding: 1rem;
+  overflow-y: auto;
+  font-size: 0.9rem;
+}
+
+.chat-form {
+  display: flex;
+  border-top: 1px solid #ccc;
+}
+
+.chat-form input {
+  flex: 1;
+  padding: 0.75rem;
+  border: none;
+  outline: none;
+}
+
+.chat-form button {
+  padding: 0.75rem;
+  background-color: #4db6ac;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.chat-form button:hover {
+  background-color: #399e92;
+}

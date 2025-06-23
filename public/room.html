@@ -69,10 +69,19 @@
         <!-- notes dom create -->
         <canvas class="board">
         </canvas>
-    </div>
     <div class="tool leave-room">
-    <button id="leave-room-btn" class="tool-img">Leave Room</button>
+        <button id="leave-room-btn"><X-icon>X</X-icon></button>
     </div>
+    <div class="chat-container">
+    <div class="chat-messages" id="chat-messages"></div>
+    <form id="chat-form" class="chat-form">
+        <input type="text" id="chat-input" placeholder="Type a message..." autocomplete="off" required>
+        <button type="submit" id="chat-send">Send</button>
+    </form>
+</div>
+
+
+
 
     <script src="https://cdn.socket.io/4.8.1/socket.io.min.js" crossorigin="anonymous"></script>
     

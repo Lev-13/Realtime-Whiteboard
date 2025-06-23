@@ -40,6 +40,8 @@ board.addEventListener("mousemove", function(e) {
   }
 });
 
+
+
 board.addEventListener("mouseup", function(e) {
   isMouseDown = false;
 });

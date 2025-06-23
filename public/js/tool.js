@@ -50,3 +50,36 @@ hamburger.addEventListener("click", function () {
   socket.emit("hamburger" , { roomName});
 });
 
+
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatMessages = document.getElementById('chat-messages');
+
+  const username = userName ;
+
+    chatForm.addEventListener('submit', function (e) {
+        e.preventDefault(); // Prevent default form submission
+        const msg = chatInput.value.trim();
+        if (msg.length > 0) {
+            socket.emit('chat-message', {
+                username: username,
+                message: msg
+            });
+            appendMessage(`You (You): ${msg}`, true);
+            chatInput.value = '';
+        }
+    });
+
+    socket.on('chat-message', function (data) {
+        appendMessage(`${data.username}: ${data.message}`);
+    });
+
+    function appendMessage(message, self = false) {
+        const msgDiv = document.createElement('div');
+        msgDiv.textContent = message;
+        msgDiv.style.margin = "0.5rem 0";
+        msgDiv.style.textAlign = self ? "right" : "left";
+        chatMessages.appendChild(msgDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
