@@ -58,9 +58,7 @@ app.post("/room", (req, res) => {
 
   if (!roomName || !userName) return res.redirect("/");
 
-  // Redirect to room.html with room and name in query string
-  
-  // console.log({roomName} , {userName}) ; 
+  // ✅ This line must point to room.html, not /room
   res.redirect(`/room.html?room=${encodeURIComponent(roomName)}&name=${encodeURIComponent(userName)}`);
 });
 
