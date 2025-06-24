@@ -1,4 +1,5 @@
 // server side
+require('dotenv').config(); // 👈 must be at the top
 const express = require("express");
 // express server
 const app = express();
@@ -15,7 +16,7 @@ app.use(express.urlencoded({ extended: true })); // Needed to read POST body
 
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://127.0.0.1:27017/whiteboardApp')
+mongoose.connect(process.env.MONGO_URI)
   .then(() => console.log("✅ MongoDB connected"))
   .catch(err => console.error("❌ MongoDB connection error:", err));
 
@@ -55,7 +56,6 @@ app.post("/room", (req, res) => {
 }
 
 
-// server
 io.on("connection", function(socket) {
 
   
@@ -165,11 +165,11 @@ socket.on("redo", ({ roomName }) => {
 
 
 });
+
 // nodejs server
+
 const port = process.env.PORT || 3000;
-// server.listen(port, function(req, res) {
-//   console.log("Server has started at port 3000");
-// });
+
 
 server.listen(port, () => {
   console.log('✅ Server running at http://localhost:3000');
