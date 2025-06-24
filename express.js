@@ -58,7 +58,9 @@ app.post("/room", (req, res) => {
 
   if (!roomName || !userName) return res.redirect("/");
 
-  // ✅ This line must point to room.html, not /room
+  // ✅ This line must point to room.html, not /room 
+
+  console.log({ roomName , userName}) ;
   res.redirect(`/room.html?room=${encodeURIComponent(roomName)}&name=${encodeURIComponent(userName)}`);
 });
 
