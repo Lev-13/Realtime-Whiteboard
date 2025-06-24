@@ -3,16 +3,29 @@ require('dotenv').config(); // 👈 must be at the top
 const express = require("express");
 // express server
 const app = express();
+
+const cors = require("cors");
 //  nodejs
-const server = require("http").Server(app);
+const { Server } = require("socket.io");
+
+const server = require("http").Server(app); 
 // nodejs => socket enabled
 const path = require("path");
-const io = require("socket.io")(server);
+
+
 // serve static assets to client
-app.use(express.static("public"));
+app.use(cors({
+  origin: "https://stalwart-youtiao-58b251.netlify.app",
+  credentials: true
+}));
 
 
-app.use(express.urlencoded({ extended: true })); // Needed to read POST body
+app.use(express.json());                      // For JSON bodies
+app.use(express.urlencoded({ extended: true })); // For form-encoded data
+
+// ✅ Serve static files from 'public' directory
+app.use(express.static(path.join(__dirname, "public")));
+
 
 const mongoose = require('mongoose');
 
@@ -28,6 +41,15 @@ const RoomSchema = new mongoose.Schema({
 });
 
 const Room = mongoose.model('Room', RoomSchema);
+
+
+const io = new Server(server, {
+  cors: {
+    origin: "https://stalwart-youtiao-58b251.netlify.app",
+    methods: ["GET", "POST"],
+    credentials: true
+  }
+});
 
 
 app.post("/room", (req, res) => {
@@ -54,6 +76,8 @@ app.post("/room", (req, res) => {
     console.error("Error fetching room users:", err);
   }
 }
+
+
 
 
 io.on("connection", function(socket) {
@@ -172,5 +196,8 @@ const port = process.env.PORT || 3000;
 
 
 server.listen(port, () => {
-  console.log('✅ Server running at http://localhost:3000');
+  
+  console.log(`✅ Server running on port ${port}`);
+
+
 });

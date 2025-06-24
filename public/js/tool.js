@@ -1,5 +1,5 @@
 // ========================== SOCKET SETUP ============================
-const socket = io.connect();
+const socket = io("https://realtime-whiteboard-production-f32f.up.railway.app");
 
 const urlParams = new URLSearchParams(window.location.search);
 const roomName = urlParams.get('room');
