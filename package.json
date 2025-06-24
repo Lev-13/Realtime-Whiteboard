@@ -1,26 +1,24 @@
 {
-  "name": "pepBoard",
+  "name": "realtime-whiteboard",
   "version": "1.0.0",
-  "description": "",
+  "description": "Real-time collaborative whiteboard with chat using Socket.IO and Express",
   "main": "express.js",
+  "scripts": {
+    "start": "node express.js"
+  },
+  "author": "Lev-13",
+  "license": "ISC",
   "dependencies": {
     "express": "^4.17.1",
     "mongoose": "^8.16.0",
-    "socket": "^1.0.0",
     "socket.io": "^4.8.1"
-  },
-  "scripts": {
-    "start": "node express"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Pep-DEV101/PepBoard.git"
+    "url": "git+https://github.com/Lev-13/Realtime-Whiteboard.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Pep-DEV101/PepBoard/issues"
+    "url": "https://github.com/Lev-13/Realtime-Whiteboard/issues"
   },
-  "homepage": "https://github.com/Pep-DEV101/PepBoard#readme"
+  "homepage": "https://github.com/Lev-13/Realtime-Whiteboard#readme"
 }

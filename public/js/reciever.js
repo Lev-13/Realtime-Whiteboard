@@ -44,3 +44,6 @@ document.getElementById("leave-room-btn").addEventListener("click", () => {
   window.location.href = "/"; // redirect to home or landing page
 });
 
+
+
+

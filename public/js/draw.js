@@ -90,3 +90,19 @@ function getLocation() {
   const { top } = board.getBoundingClientRect();
   return top;
 }
+
+function clearWhiteboard(local = true) {
+    const canvas = document.getElementById('board');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    if (local) {
+        socket.emit('clear-board', { roomName });
+    }
+}
+
+// Receive board clear from others
+socket.on('clear-board', () => {
+    clearWhiteboard(false);
+});
+

@@ -50,6 +50,10 @@ hamburger.addEventListener("click", function () {
   socket.emit("hamburger" , { roomName});
 });
 
+socket.on('clear-board', () => {
+    clearWhiteboard();
+});
+
 
     const chatForm = document.getElementById('chat-form');
     const chatInput = document.getElementById('chat-input');
@@ -82,4 +86,31 @@ hamburger.addEventListener("click", function () {
         chatMessages.appendChild(msgDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
+
+
+    document.querySelector('.download-tool').addEventListener('click', function () {
+    const canvas = document.getElementById('board');
+    if (!canvas) {
+        console.error("Canvas with id 'board' not found.");
+        return;
+    }
+
+    const imageURL = canvas.toDataURL('image/png'); // Get base64 image URL
+    const link = document.createElement('a');
+    link.href = imageURL;
+    link.download = 'whiteboard.png'; // file name
+    link.click(); // Trigger download
+});
+
+const usersList = document.getElementById('users-list');
+
+socket.on('room-users', (users) => {
+  usersList.innerHTML = '';
+  users.forEach(user => {
+    const li = document.createElement('li');
+    li.textContent = user;
+    usersList.appendChild(li);
+  });
+});
+
 

@@ -48,13 +48,9 @@
                     </div>
                 </div>
                 <div class="tool">
-                    <img src="NewIcons/StickyNote.svg" alt="" onclick="handleLocaltoolChange('sticky')" class="tool-img">
+                    <img src="NewIcons/Clear.svg" alt="Clear Board" class="tool-img" onclick="clearWhiteboard()">
                 </div>
-                <div class="tool">
-                    <input type="file" name="" id="" class="input-img" accept="image/*">
-                    <img src="NewIcons/Photo.svg" alt="" class="upload-img tool-img"
-                        onclick="handleToolChange('upload')">
-                </div>
+
                 <div class="tool">
                     <img src="./NewIcons/Download.svg" alt="" class="tool-img download-tool">
                 </div>
@@ -67,7 +63,7 @@
             </div>
         </div>
         <!-- notes dom create -->
-        <canvas class="board">
+        <canvas id= "board" class="board">
         </canvas>
     <div class="tool leave-room">
         <button id="leave-room-btn"><X-icon>X</X-icon></button>
@@ -79,6 +75,12 @@
         <button type="submit" id="chat-send">Send</button>
     </form>
 </div>
+
+    <div class="users-panel" id="users-panel">
+        <h3>👥 Members</h3>
+        <ul id="users-list"></ul>
+    </div>
+
 
 
 

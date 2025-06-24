@@ -43,6 +43,17 @@ app.post("/room", (req, res) => {
 
   console.log("here1") ;
 
+  async function sendRoomUsers(roomName) {
+  try {
+    const room = await Room.findOne({ name: roomName });
+    if (room) {
+      io.to(roomName).emit('room-users', room.users);
+    }
+  } catch (err) {
+    console.error("Error fetching room users:", err);
+  }
+}
+
 
 // server
 io.on("connection", function(socket) {
@@ -54,6 +65,10 @@ io.on("connection", function(socket) {
   console.log(`Joining room: ${roomName} by ${userName}`);
   socket.join(roomName);
   socket.to(roomName).emit('user-connected', userName);
+  socket.to(roomName).emit('chat-message', {
+            username: userName,
+            message: `${userName} has joined the room.`
+        });
 
   try {
     let room = await Room.findOne({ name: roomName });
@@ -68,6 +83,8 @@ io.on("connection", function(socket) {
     }
 
     await room.save();
+    await sendRoomUsers(roomName);
+
     console.log(`Room saved to DB: ${room.name}, users: ${room.users.join(', ')}`);
 
   } catch (err) {
@@ -76,6 +93,12 @@ io.on("connection", function(socket) {
 
   socket.on("disconnect", async () => {
     console.log(`${userName} disconnected from ${roomName}`);
+    if (userName && roomName) {
+            socket.to(roomName).emit('chat-message', {
+                username: userName,
+                message: `${userName} has left the room.`
+            });
+        }
     try {
       const room = await Room.findOne({ name: roomName });
       if (room) {
@@ -91,6 +114,8 @@ io.on("connection", function(socket) {
     } catch (err) {
       console.error('Error updating room on disconnect:', err);
     }
+      await sendRoomUsers(roomName);
+
   });
 });
 
@@ -104,6 +129,9 @@ io.on("connection", function(socket) {
 
 socket.on("size", ({ size, roomName }) => {
   socket.to(roomName).emit("onsize", size);
+});
+socket.on('clear-board', ({ roomName }) => {
+    socket.to(roomName).emit('clear-board');
 });
 
 socket.on("color", ({ color, roomName }) => {

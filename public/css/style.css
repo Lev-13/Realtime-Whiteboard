@@ -1,161 +1,170 @@
+/* === Reset & Base === */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-.tool-img {
-  height: 3rem;
-  width: 3rem;
-  margin-right: 1rem;
-  transition: transform 0.3s;
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #f8f9fa;
 }
-.active {
-  width: 67px;
-  text-align: center;
-  padding: 7px;
-  border-radius: 50px;
-  box-sizing: border-box;
-  background-color: lightgray;
-}
+
+/* === Toolbar === */
 .toolBar {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap:2rem;
   height: 18vh;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 5;
 }
+
+/* === Tool Panel === */
 .tool-panel {
   display: flex;
-  background-color: white;
-  height: 81%;
-  width: 70%;
-  justify-content: space-evenly;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 0.75rem 1.25rem;
+  width: 72%;
+  justify-content: space-between;
   align-items: center;
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
-  border-radius: 0.8rem;
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
   opacity: 0;
 }
-.tool-options {
-  height: 7rem;
-  width: 10rem;
-  display: none;
-  position: absolute;
-  top: 4.75rem;
-  left:-3rem;
-  border-radius: 0.5rem;
-  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+
+.tool {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.tool-options.eraser{
-  left: -3rem;
+
+.tool-img {
+  height: 2.8rem;
+  width: 2.8rem;
+  margin: 0.25rem;
+  cursor: pointer;
+  transition: transform 0.2s, filter 0.2s;
+}
+
+.tool-img:hover {
+  transform: scale(1.1);
+  filter: brightness(1.1);
+}
+
+.active {
+  background-color: #e0f7fa;
+  border-radius: 50%;
+  padding: 0.5rem;
+}
+
+/* === Tool Options === */
+.tool-options {
+  position: absolute;
+  top: 4rem;
+  left: -2rem;
+  background-color: white;
+  border-radius: 0.5rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  display: none;
+  width: 10rem;
+  z-index: 10;
+}
+
+.tool-options.eraser {
   height: 3rem;
   text-align: center;
   padding-top: 1rem;
-  
 }
+
 .show {
-  display: block;
+  display: block !important;
 }
 
-.pencil-size {
-  height: 40%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-border-bottom: grey 1px solid;
-
+/* === Pencil Tools === */
+.pencil-size, .eraser-size {
+  padding: 0.75rem;
+  text-align: center;
 }
+
 .pencil-color {
-  height: 60%;
   display: flex;
   justify-content: center;
-  align-items: center;
-}
-
-input[type=range] {
-  
-  -webkit-appearance: none;
-  width: 90%;
-  height: 13px;
-  border-radius: 5px;
-  background: #4db6ac;
-
-  outline: none;
-  opacity: 0.7;
-  -webkit-transition: 0.2s;
-  transition: opacity 0.2s;
-  /* transform: translate(0,-50%); */
-}
-input[type=range]:hover {
-  opacity: 1; /* Fully shown on mouse-over */
-}
-
-input[type=range]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-  appearance: none;
-  width: 25px;
-  height: 25px;
-  border-radius: 50%;
-  background: #81d4fa;
-  cursor: pointer;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
 }
 
 .colors {
-  width: 20%;
-  height: 60%;
-  margin-right: 0.25rem;
+  height: 1.5rem;
+  width: 1.5rem;
   border-radius: 50%;
-}
-.red {
-  background-color: red;
-}
-.green {
-  background-color: #55efc4;
-}
-.blue {
-  background-color: blue;
-}
-.tool {
-  position: relative;
+  cursor: pointer;
+  border: 2px solid transparent;
 }
 
+.colors:hover {
+  border: 2px solid #888;
+}
 
-.add-animation{
-  animation-name: stretch;
-  animation-duration: 0.7s; 
-  animation-timing-function: ease-out; 
-  animation-delay: 0;
-  animation-direction: alternate;
-  animation-fill-mode: none;
-  animation-play-state: running;
+.red { background-color: #e74c3c; }
+.green { background-color: #2ecc71; }
+.blue { background-color: #3498db; }
+
+/* === Range Input === */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: 90%;
+  height: 8px;
+  background: #4db6ac;
+  border-radius: 4px;
+  outline: none;
+  opacity: 0.9;
+  transition: 0.2s;
+}
+
+input[type="range"]:hover {
   opacity: 1;
 }
-@keyframes stretch {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-    border-radius: 100%;
-  }
 
-  50% {
-    transform: (0.7);
-    opacity: 0.5;
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 18px;
+  width: 18px;
+  border-radius: 50%;
+  background: #26c6da;
+  cursor: pointer;
+}
+
+/* === Animation === */
+.add-animation {
+  animation: fadeInZoom 0.4s ease-in-out forwards;
+  opacity: 0;
+}
+
+@keyframes fadeInZoom {
+  0% {
+    transform: scale(0.8);
+    opacity: 0;
   }
   100% {
     transform: scale(1);
-opacity: 1;
+    opacity: 1;
   }
 }
 
+/* === Chat Window === */
 .chat-container {
   position: fixed;
   bottom: 2rem;
   right: 2rem;
-  width: 300px;
-  max-height: 400px;
-  background-color: white;
-  border-radius: 0.5rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  width: 320px;
+  max-height: 450px;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -166,29 +175,100 @@ opacity: 1;
   flex: 1;
   padding: 1rem;
   overflow-y: auto;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
+  line-height: 1.4;
 }
 
+/* === Chat Form === */
 .chat-form {
   display: flex;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid #ddd;
+  background: #fafafa;
 }
 
 .chat-form input {
   flex: 1;
   padding: 0.75rem;
   border: none;
+  font-size: 0.95rem;
+  border-top-left-radius: 0.5rem;
+  border-bottom-left-radius: 0.5rem;
   outline: none;
 }
 
 .chat-form button {
-  padding: 0.75rem;
+  padding: 0 1rem;
   background-color: #4db6ac;
   color: white;
+  font-weight: bold;
   border: none;
+  border-top-right-radius: 0.5rem;
+  border-bottom-right-radius: 0.5rem;
   cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
 }
 
 .chat-form button:hover {
   background-color: #399e92;
+}
+
+/* === Leave Room Button === */
+.leave-room {
+  position: fixed;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 1000;
+}
+
+#leave-room-btn {
+  background-color: #ef5350;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  height: 3.2rem;
+  width: 3.2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.25s, transform 0.2s ease;
+}
+
+#leave-room-btn:hover {
+  background-color: #e53935;
+  transform: scale(1.08);
+}
+
+#leave-room-btn:active {
+  transform: scale(0.95);
+}
+
+.users-panel {
+  position: fixed;
+  top: 6rem;
+  left: 1rem;
+  width: 200px;
+  background: white;
+  padding: 1rem;
+  border-radius: 0.75rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+
+#users-list {
+  list-style: none;
+  padding: 0;
+}
+
+#users-list li {
+  padding: 0.4rem 0;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #eee;
+}
+
+.uploadedImgStyle {
+  width: 100%;
+}
+.input-img{
+  display: none;
 }
